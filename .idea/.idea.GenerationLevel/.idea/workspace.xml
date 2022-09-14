@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bbf00b13-eb8b-42a7-91d6-f0bae467add4" name="Changes" comment="" />
+    <list default="true" id="bbf00b13-eb8b-42a7-91d6-f0bae467add4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/VoxelTilePlacer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/VoxelTilePlacer.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GenerationLevel/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GenerationLevel/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GenerationLevel/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GenerationLevel/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VoxelTile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VoxelTile.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,6 +28,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -64,6 +71,7 @@
       <option name="presentableId" value="Default" />
       <updated>1663127997251</updated>
       <workItem from="1663128022569" duration="5745000" />
+      <workItem from="1663147066360" duration="5784000" />
     </task>
     <servers />
   </component>
