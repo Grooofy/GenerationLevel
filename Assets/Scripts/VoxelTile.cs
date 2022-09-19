@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -10,31 +11,42 @@ public class VoxelTile : MonoBehaviour
     [Range(1,100)]   
     public int Weight = 50;
 
-    private float _voxelHalf;
+    //[HideInInspector] public byte[] ColorRight;
+    //[HideInInspector] public byte[] ColorLeft;
+    [HideInInspector] public byte[] ColorForward;
+    [HideInInspector] public byte[] ColorBack;
+
+    private List<byte> _colorRight = new List<byte>();
+    private List<byte> _colorLeft = new List<byte>();
+    private List<byte> _colorForward = new List<byte>();
+    private List<byte> _colorBack = new List<byte>();
+
+    public IReadOnlyCollection<byte> ColorRight => _colorRight;
+    public IReadOnlyCollection<byte> ColorLeft => _colorLeft;
+
+    private float _voxelHalf = 0.05f;
     private MeshCollider _meshChildrenCollider;
     private Vector3 _rayStart;
 
     private void Awake()
     {
-        _voxelHalf = VoxelSize / 2;
+       
         _meshChildrenCollider = GetComponentInChildren<MeshCollider>();
     }
 
-    public void CalculateSideColors(out byte[] colorRight, out byte[] colorLeft, out byte[] colorForward, out byte[] colorBack) 
+    public void CalculateSideColors() 
     {
-        colorRight = new byte[TileSideVoxels * TileSideVoxels];
-        colorForward = new byte[TileSideVoxels * TileSideVoxels];
-        colorLeft = new byte[TileSideVoxels * TileSideVoxels];
-        colorBack = new byte[TileSideVoxels * TileSideVoxels];
-        
+        ColorForward = new byte[TileSideVoxels * TileSideVoxels];
+        ColorBack = new byte[TileSideVoxels * TileSideVoxels];
+
         for (int y = 0; y < TileSideVoxels; y++)
         {
             for (int i = 0; i < TileSideVoxels; i++)
             {
-                colorRight[y * TileSideVoxels + i] = GetVoxelColorRightSide(y, i);
-                colorForward[y * TileSideVoxels + i] = GetVoxelColorForwardSide(y, i);
-                colorLeft[y * TileSideVoxels + i] = GetVoxelColorLeftSide(y, i);
-                colorBack[y * TileSideVoxels + i] = GetVoxelColorBackSide(y, i);
+                _colorRight.Add(GetVoxelColorRightSide(y, i));
+               _colorLeft.Add(GetVoxelColorLeftSide(y, i));
+                ColorForward[y * TileSideVoxels + i] = GetVoxelColorForwardSide(y, i);
+                ColorBack[y * TileSideVoxels + i] = GetVoxelColorBackSide(y, i);
             }
         }
     }
@@ -46,7 +58,7 @@ public class VoxelTile : MonoBehaviour
         _rayStart = _meshChildrenCollider.bounds.max +
                        new Vector3(-_voxelHalf - (TileSideVoxels - horizontalOffSet - 1) * VoxelSize, 0, _voxelHalf);
 
-        SpecifyVerticalPositionRaycastHit(_rayStart, _meshChildrenCollider, verticalLayer);
+        _rayStart.y = SpecifyVerticalPositionRaycastHit(_rayStart, verticalLayer);
 
         return TryDropeRaycastHit(_rayStart, direction);
     }
@@ -58,7 +70,7 @@ public class VoxelTile : MonoBehaviour
         _rayStart = _meshChildrenCollider.bounds.min +
                       new Vector3(_voxelHalf + horizontalOffSet * VoxelSize, 0, -_voxelHalf);
 
-        SpecifyVerticalPositionRaycastHit(_rayStart, _meshChildrenCollider, verticalLayer);
+        _rayStart.y = SpecifyVerticalPositionRaycastHit(_rayStart, verticalLayer);
 
         return TryDropeRaycastHit(_rayStart, direction);
 
@@ -71,7 +83,7 @@ public class VoxelTile : MonoBehaviour
         _rayStart = _meshChildrenCollider.bounds.max +
                       new Vector3(_voxelHalf, 0, -_voxelHalf - (TileSideVoxels - horizontalOffSet - 1) * VoxelSize);
 
-        SpecifyVerticalPositionRaycastHit(_rayStart, _meshChildrenCollider, verticalLayer);
+        _rayStart.y = SpecifyVerticalPositionRaycastHit(_rayStart, verticalLayer);
 
         return TryDropeRaycastHit(_rayStart, direction);
     }
@@ -83,12 +95,15 @@ public class VoxelTile : MonoBehaviour
         _rayStart = _meshChildrenCollider.bounds.min +
                        new Vector3(-_voxelHalf, 0, _voxelHalf + horizontalOffSet * VoxelSize);
 
-        SpecifyVerticalPositionRaycastHit(_rayStart, _meshChildrenCollider, verticalLayer);
+        _rayStart.y = SpecifyVerticalPositionRaycastHit(_rayStart, verticalLayer);
 
         return TryDropeRaycastHit(_rayStart, direction);
     }
 
-    private void SpecifyVerticalPositionRaycastHit(Vector3 rayStart, MeshCollider meshCollider, int verticalLayer) => rayStart.y = meshCollider.bounds.min.y + _voxelHalf + verticalLayer * VoxelSize;
+    private float SpecifyVerticalPositionRaycastHit(Vector3 rayStart, int verticalLayer)
+    {
+        return  _meshChildrenCollider.bounds.min.y + _voxelHalf + verticalLayer * VoxelSize;
+    }
 
     private byte TryDropeRaycastHit(Vector3 rayStart, Vector3 direction) 
     {
