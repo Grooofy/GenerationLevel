@@ -21,7 +21,7 @@ public class VoxelTilePlacer : MonoBehaviour
 
         foreach (VoxelTile tilePrefab in TilePrefabs)
         {
-            tilePrefab.CalculateSideColors();
+            //tilePrefab.CalculateSideColors();
         }
         
         tileInstantiated = StartCoroutine(Generate());
@@ -49,58 +49,58 @@ public class VoxelTilePlacer : MonoBehaviour
             for (int y = 1; y < MapSize.y-1; y++)
             {
                 yield return new WaitForSeconds(0.1f);
-                PlaceTile(x, y);
+               // PlaceTile(x, y);
             }
         }
     }
 
-    public void PlaceTile(int x, int y)
-    {
-        List<VoxelTile> avelibleTiles = new List<VoxelTile>();
+    //public void PlaceTile(int x, int y)
+    //{
+    //    List<VoxelTile> avelibleTiles = new List<VoxelTile>();
 
-        foreach (VoxelTile tilePrefab in TilePrefabs)
-        {
-            if (CanAppendTile(spawnedTiles[x - 1, y], tilePrefab, Vector3.left) &&
-                CanAppendTile(spawnedTiles[x + 1, y], tilePrefab, Vector3.right) &&
-                CanAppendTile(spawnedTiles[x, y - 1], tilePrefab, Vector3.back) &&
-                CanAppendTile(spawnedTiles[x, y + 1], tilePrefab, Vector3.forward))
-            {
-                avelibleTiles.Add(tilePrefab);
-            }
-        }
+    //    foreach (VoxelTile tilePrefab in TilePrefabs)
+    //    {
+    //        if (CanAppendTile(spawnedTiles[x - 1, y], tilePrefab, Vector3.left) &&
+    //            CanAppendTile(spawnedTiles[x + 1, y], tilePrefab, Vector3.right) &&
+    //            CanAppendTile(spawnedTiles[x, y - 1], tilePrefab, Vector3.back) &&
+    //            CanAppendTile(spawnedTiles[x, y + 1], tilePrefab, Vector3.forward))
+    //        {
+    //            avelibleTiles.Add(tilePrefab);
+    //        }
+    //    }
 
-        if (avelibleTiles.Count == 0) return;
+    //    if (avelibleTiles.Count == 0) return;
         
-        VoxelTile selectTile = avelibleTiles[Random.Range(0, avelibleTiles.Count)];
-        Vector3 position = new Vector3(x, 0, y) * (selectTile.VoxelSize * selectTile.TileSideVoxels);
-        spawnedTiles[x, y] = Instantiate(selectTile, position, Quaternion.identity);
-    }
+    //    VoxelTile selectTile = avelibleTiles[Random.Range(0, avelibleTiles.Count)];
+    //    Vector3 position = new Vector3(x, 0, y) * (selectTile.VoxelSize * selectTile.TileSideVoxels);
+    //    spawnedTiles[x, y] = Instantiate(selectTile, position, Quaternion.identity);
+    //}
 
-    private bool CanAppendTile(VoxelTile existTile, VoxelTile tileToAppend, Vector3 direction)
-    {
-        if (existTile == null) return true;
+    //private bool CanAppendTile(VoxelTile existTile, VoxelTile tileToAppend, Vector3 direction)
+    //{
+    //    if (existTile == null) return true;
 
-        if (direction == Vector3.right)
-        {
-            return Enumerable.SequenceEqual(existTile.ColorRight, tileToAppend.ColorLeft);
-        }
-        else if (direction == Vector3.left)
-        {
-            return Enumerable.SequenceEqual(existTile.ColorLeft, tileToAppend.ColorRight);
-        }
-        else if (direction == Vector3.forward)
-        {
-            return Enumerable.SequenceEqual(existTile.ColorForward, tileToAppend.ColorBack);
-        }
-        else if (direction == Vector3.back)
-        {
-            return Enumerable.SequenceEqual(existTile.ColorBack, tileToAppend.ColorForward);
-        }
-        else
-        {
-            throw new ArgumentException("You Vector Suck", nameof(direction));
-        }
-    }
+    //    if (direction == Vector3.right)
+    //    {
+    //        return Enumerable.SequenceEqual(existTile.ColorRight, tileToAppend.ColorLeft);
+    //    }
+    //    else if (direction == Vector3.left)
+    //    {
+    //        return Enumerable.SequenceEqual(existTile.ColorLeft, tileToAppend.ColorRight);
+    //    }
+    //    else if (direction == Vector3.forward)
+    //    {
+    //        return Enumerable.SequenceEqual(existTile.ColorForward, tileToAppend.ColorBack);
+    //    }
+    //    else if (direction == Vector3.back)
+    //    {
+    //        return Enumerable.SequenceEqual(existTile.ColorBack, tileToAppend.ColorForward);
+    //    }
+    //    else
+    //    {
+    //        throw new ArgumentException("You Vector Suck", nameof(direction));
+    //    }
+    //}
     
     
 }
