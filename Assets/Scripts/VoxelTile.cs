@@ -7,101 +7,87 @@ public class VoxelTile : MonoBehaviour
     [SerializeField] public float VoxelSize = 0.1f;
     [SerializeField] public int TileSideVoxels = 8;
 
+    [HideInInspector] public byte[] ColorRight;
+    [HideInInspector] public byte[] ColorForward;
+    [HideInInspector] public byte[] ColorLeft;
+    [HideInInspector] public byte[] ColorBack;
+
     [Range(1,100)]   
     public int Weight = 50;
 
-    private float _voxelHalf;
-    private MeshCollider _meshChildrenCollider;
-    private Vector3 _rayStart;
+    private MeshCollider _meshCollider;
 
     private void Awake()
     {
-        _voxelHalf = VoxelSize / 2;
-        _meshChildrenCollider = GetComponentInChildren<MeshCollider>();
+        _meshCollider = GetComponentInChildren<MeshCollider>();
     }
 
-    public void CalculateSideColors(out byte[] colorRight, out byte[] colorLeft, out byte[] colorForward, out byte[] colorBack) 
+    public void CalculateSideColors()
     {
-        colorRight = new byte[TileSideVoxels * TileSideVoxels];
-        colorForward = new byte[TileSideVoxels * TileSideVoxels];
-        colorLeft = new byte[TileSideVoxels * TileSideVoxels];
-        colorBack = new byte[TileSideVoxels * TileSideVoxels];
+        ColorRight = new byte[TileSideVoxels * TileSideVoxels];
+        ColorForward = new byte[TileSideVoxels * TileSideVoxels];
+        ColorLeft = new byte[TileSideVoxels * TileSideVoxels];
+        ColorBack = new byte[TileSideVoxels * TileSideVoxels];
         
         for (int y = 0; y < TileSideVoxels; y++)
         {
             for (int i = 0; i < TileSideVoxels; i++)
             {
-                colorRight[y * TileSideVoxels + i] = GetVoxelColorRightSide(y, i);
-                colorForward[y * TileSideVoxels + i] = GetVoxelColorForwardSide(y, i);
-                colorLeft[y * TileSideVoxels + i] = GetVoxelColorLeftSide(y, i);
-                colorBack[y * TileSideVoxels + i] = GetVoxelColorBackSide(y, i);
+                ColorRight[y * TileSideVoxels + i] = GetVoxelColor(y, i, Vector3.right);
+                ColorForward[y * TileSideVoxels + i] = GetVoxelColor(y, i, Vector3.forward);
+                ColorLeft[y * TileSideVoxels + i] = GetVoxelColor(y, i, Vector3.left);
+                ColorBack[y * TileSideVoxels + i] = GetVoxelColor(y, i, Vector3.back);
             }
         }
     }
 
-    private byte GetVoxelColorBackSide(int verticalLayer, int horizontalOffSet)
-    {
-        Vector3 direction = Vector3.back;
+    private byte GetVoxelColor(int verticalLayer, int horizontalOffSet, Vector3 direction)
+    {        
+        float vox = VoxelSize;
+        float half = VoxelSize / 2;
 
-        _rayStart = _meshChildrenCollider.bounds.max +
-                       new Vector3(-_voxelHalf - (TileSideVoxels - horizontalOffSet - 1) * VoxelSize, 0, _voxelHalf);
+        Vector3 rayStart ;
+        
+        if (direction == Vector3.right)
+        {
+            rayStart = _meshCollider.bounds.min + 
+                       new Vector3(-half, 0, half + horizontalOffSet * vox);
+        }
+        else if(direction == Vector3.forward)
+        {
+            rayStart = _meshCollider.bounds.min +
+                       new Vector3(half + horizontalOffSet * vox, 0, -half);
+        }
+        else if (direction == Vector3.left)
+        {
+            rayStart = _meshCollider.bounds.max + 
+                       new Vector3(half, 0, -half - (TileSideVoxels - horizontalOffSet -1) * vox);
+        }
+        else if (direction == Vector3.back)
+        {
+            rayStart = _meshCollider.bounds.max +
+                       new Vector3(-half - (TileSideVoxels - horizontalOffSet -1) * vox, 0, half);
+        }
+        else
+        {
+            throw new ArgumentException("Tou suck",  nameof(direction));
+           
+        }
+        rayStart.y = _meshCollider.bounds.min.y + half + verticalLayer * vox;
 
-        SpecifyVerticalPositionRaycastHit(_rayStart, _meshChildrenCollider, verticalLayer);
-
-        return TryDropeRaycastHit(_rayStart, direction);
+        return TryDropeRay(rayStart, direction);
     }
 
-    private byte GetVoxelColorForwardSide(int verticalLayer, int horizontalOffSet)
+  
+
+    private byte TryDropeRay(Vector3 rayStart, Vector3 direction)
     {
-        Vector3 direction = Vector3.forward;
-
-        _rayStart = _meshChildrenCollider.bounds.min +
-                      new Vector3(_voxelHalf + horizontalOffSet * VoxelSize, 0, -_voxelHalf);
-
-        SpecifyVerticalPositionRaycastHit(_rayStart, _meshChildrenCollider, verticalLayer);
-
-        return TryDropeRaycastHit(_rayStart, direction);
-
-    }
-
-    private byte GetVoxelColorLeftSide(int verticalLayer, int horizontalOffSet)
-    {
-        Vector3 direction = Vector3.left;
-
-        _rayStart = _meshChildrenCollider.bounds.max +
-                      new Vector3(_voxelHalf, 0, -_voxelHalf - (TileSideVoxels - horizontalOffSet - 1) * VoxelSize);
-
-        SpecifyVerticalPositionRaycastHit(_rayStart, _meshChildrenCollider, verticalLayer);
-
-        return TryDropeRaycastHit(_rayStart, direction);
-    }
-
-    private byte GetVoxelColorRightSide(int verticalLayer, int horizontalOffSet)
-    {
-        Vector3 direction = Vector3.right;
-
-        _rayStart = _meshChildrenCollider.bounds.min +
-                       new Vector3(-_voxelHalf, 0, _voxelHalf + horizontalOffSet * VoxelSize);
-
-        SpecifyVerticalPositionRaycastHit(_rayStart, _meshChildrenCollider, verticalLayer);
-
-        return TryDropeRaycastHit(_rayStart, direction);
-    }
-
-    private void SpecifyVerticalPositionRaycastHit(Vector3 rayStart, MeshCollider meshCollider, int verticalLayer) => rayStart.y = meshCollider.bounds.min.y + _voxelHalf + verticalLayer * VoxelSize;
-
-    private byte TryDropeRaycastHit(Vector3 rayStart, Vector3 direction) 
-    {
-        int triangleCount = 3;
-        int maxNumberColor = 256;
-
         if (Physics.Raycast(new Ray(rayStart, direction), out RaycastHit hit, VoxelSize))
         {
-            Mesh mesh = _meshChildrenCollider.sharedMesh;
+            Mesh mesh = _meshCollider.sharedMesh;
 
-            int hitTriangleVertex = mesh.triangles[hit.triangleIndex * triangleCount];
-
-            byte colorIndex = (byte)(mesh.uv[hitTriangleVertex].x * maxNumberColor);
+            int hitTriangleVertex = mesh.triangles[hit.triangleIndex * 3];
+            byte colorIndex = (byte)(mesh.uv[hitTriangleVertex].x * 256);
 
             return colorIndex;
         }
