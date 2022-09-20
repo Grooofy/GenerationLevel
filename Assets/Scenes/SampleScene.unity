@@ -191,40 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TilePrefabs:
-  - {fileID: 538619569}
-  - {fileID: 1764623458}
-  - {fileID: 305349376}
-  - {fileID: 1302893868}
-  - {fileID: 1466971756}
-  - {fileID: 290750868}
-  - {fileID: 236046153}
   - {fileID: 1845021151}
-  - {fileID: 340292059}
-  - {fileID: 665579858}
-  - {fileID: 923065087}
-  - {fileID: 779426151}
-  - {fileID: 591667902}
-  - {fileID: 900698710}
-  - {fileID: 1743391313}
-  - {fileID: 1350534485}
-  - {fileID: 2062327887}
-  - {fileID: 813553234}
-  - {fileID: 1357218311}
-  - {fileID: 990811980}
-  - {fileID: 1946631925}
-  - {fileID: 644330597}
-  - {fileID: 414784015}
-  - {fileID: 584303320}
-  - {fileID: 569877312}
-  - {fileID: 637088307}
-  - {fileID: 1206193711}
-  - {fileID: 1204137314}
-  - {fileID: 1752856593}
-  - {fileID: 1531626713}
-  - {fileID: 1874369235}
-  - {fileID: 543877338}
-  - {fileID: 1363687319}
-  - {fileID: 963660116}
   MapSize: {x: 10, y: 10}
 --- !u!4 &155371320
 Transform:
@@ -357,6 +324,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1001 &249488761
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -518,6 +486,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &305349375 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: df7754d9675c1ee46b2b3751e5a350dd, type: 3}
@@ -538,6 +507,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &340292058 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: dd8a213ab79b4694fb4d5869266623a1, type: 3}
@@ -558,6 +528,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &340460270 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 293f32cc8161f3f46928ce602751f128, type: 3}
@@ -735,6 +706,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1001 &423066882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1120,6 +1092,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &543877337 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a9fe52eb9f6ac5845acb5ee6e5186216, type: 3}
@@ -1140,6 +1113,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1001 &548079461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1256,6 +1230,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &584303319 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03500316babff2b43b56e63b1311e055, type: 3}
@@ -1276,6 +1251,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &591667901 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 293f32cc8161f3f46928ce602751f128, type: 3}
@@ -1296,6 +1272,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &629329353 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: ba41de859bff3464989c634abf362304, type: 3}
@@ -1335,6 +1312,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &644330596 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3467afcb17f233b41ba2cfcd7927259b, type: 3}
@@ -1355,6 +1333,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &665579857 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ba41de859bff3464989c634abf362304, type: 3}
@@ -1375,6 +1354,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &674641395 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: e3b75f72397154b4389cbc7a83160342, type: 3}
@@ -1688,6 +1668,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1001 &783907507
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1785,6 +1766,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &847741284 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: ba41de859bff3464989c634abf362304, type: 3}
@@ -1981,6 +1963,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &923065086 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ba41de859bff3464989c634abf362304, type: 3}
@@ -2001,6 +1984,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1001 &930299053
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2336,6 +2320,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &986253613 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 293f32cc8161f3f46928ce602751f128, type: 3}
@@ -2375,6 +2360,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1001 &1025927933
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2510,6 +2496,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &1206193710 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ef7a6f18b6539de4e90af6083b85f7f7, type: 3}
@@ -2530,6 +2517,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &1217532787 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: ba41de859bff3464989c634abf362304, type: 3}
@@ -2787,6 +2775,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &1322717597 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 03500316babff2b43b56e63b1311e055, type: 3}
@@ -2826,6 +2815,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &1357218310 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3467afcb17f233b41ba2cfcd7927259b, type: 3}
@@ -2846,6 +2836,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &1363687318 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a9fe52eb9f6ac5845acb5ee6e5186216, type: 3}
@@ -2866,6 +2857,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1001 &1414792281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3143,6 +3135,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1001 &1504175325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3240,6 +3233,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &1578045410 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 3467afcb17f233b41ba2cfcd7927259b, type: 3}
@@ -3436,6 +3430,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &1752856592 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ef7a6f18b6539de4e90af6083b85f7f7, type: 3}
@@ -3456,6 +3451,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &1764623457 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e3b75f72397154b4389cbc7a83160342, type: 3}
@@ -3476,6 +3472,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1001 &1817833689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3849,6 +3846,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &1855236989 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 03500316babff2b43b56e63b1311e055, type: 3}
@@ -3888,6 +3886,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &1932888991 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: a9fe52eb9f6ac5845acb5ee6e5186216, type: 3}
@@ -3927,6 +3926,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &1984853228 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 630803ebf1833e447a193ce789c5f970, type: 3}
@@ -4062,6 +4062,7 @@ MonoBehaviour:
   VoxelSize: 0.1
   TileSideVoxels: 8
   Weight: 50
+  ColorBack: 
 --- !u!1 &2070724960 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: df7754d9675c1ee46b2b3751e5a350dd, type: 3}
