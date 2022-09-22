@@ -13,26 +13,26 @@ public class VoxelTilePlacer : MonoBehaviour
 
     private VoxelTile[,] spawnedTiles;
     private Coroutine tileInstantiated;
-    
-    
+
+
     private void Start()
     {
         spawnedTiles = new VoxelTile[MapSize.x, MapSize.y];
 
         foreach (VoxelTile tilePrefab in TilePrefabs)
         {
-           tilePrefab.CalculateSideColors();
+            tilePrefab.CalculateSideColors();
         }
-        
         tileInstantiated = StartCoroutine(Generate());
     }
+
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
             StopCoroutine(tileInstantiated);
-            
+
             foreach (VoxelTile spawnedTile in spawnedTiles)
             {
                 if (spawnedTile != null) Destroy(spawnedTile.gameObject);
@@ -44,9 +44,9 @@ public class VoxelTilePlacer : MonoBehaviour
 
     public IEnumerator Generate()
     {
-        for (int x = 1; x < MapSize.x-1; x++)
+        for (int x = 1; x < MapSize.x - 1; x++)
         {
-            for (int y = 1; y < MapSize.y-1; y++)
+            for (int y = 1; y < MapSize.y - 1; y++)
             {
                 yield return new WaitForSeconds(0.1f);
                 PlaceTile(x, y);
@@ -60,10 +60,10 @@ public class VoxelTilePlacer : MonoBehaviour
 
         foreach (VoxelTile tilePrefab in TilePrefabs)
         {
-            if (CanAppendTile(spawnedTiles[x - 1, y], tilePrefab, Vector3.left) &&
-                CanAppendTile(spawnedTiles[x + 1, y], tilePrefab, Vector3.right) &&
-                CanAppendTile(spawnedTiles[x, y - 1], tilePrefab, Vector3.back) &&
-                CanAppendTile(spawnedTiles[x, y + 1], tilePrefab, Vector3.forward))
+            if (CanAppendTileLeftSide(spawnedTiles[x-1, y], tilePrefab) &&
+                CanAppendTileRighSide(spawnedTiles[x + 1, y], tilePrefab) &&
+                CanAppendTileForwardSide(spawnedTiles[x, y + 1], tilePrefab) &&
+                CanAppendTileBackSide(spawnedTiles[x, y - 1], tilePrefab))
             {
                 avelibleTiles.Add(tilePrefab);
             }
@@ -76,31 +76,32 @@ public class VoxelTilePlacer : MonoBehaviour
         spawnedTiles[x, y] = Instantiate(selectTile, position, Quaternion.identity);
     }
 
-    private bool CanAppendTile(VoxelTile existTile, VoxelTile tileToAppend, Vector3 direction)
+    private bool CanAppendTileLeftSide(VoxelTile existTile, VoxelTile tileToAppend)
     {
         if (existTile == null) return true;
 
-        if (direction == Vector3.right)
-        {
-            return Enumerable.SequenceEqual(existTile.ColorRight, tileToAppend.ColorLeft);
-        }
-        else if (direction == Vector3.left)
-        {
-            return Enumerable.SequenceEqual(existTile.ColorLeft, tileToAppend.ColorRight);
-        }
-        else if (direction == Vector3.forward)
-        {
-            return Enumerable.SequenceEqual(existTile.ColorForward, tileToAppend.ColorBack);
-        }
-        else if (direction == Vector3.back)
-        {
-            return Enumerable.SequenceEqual(existTile.ColorBack, tileToAppend.ColorForward);
-        }
-        else
-        {
-            throw new ArgumentException("You Vector Suck", nameof(direction));
-        }
+        return Enumerable.SequenceEqual(existTile.ColorLeft, tileToAppend.ColorRight);
     }
 
+    private bool CanAppendTileRighSide(VoxelTile existTile, VoxelTile tileToAppend)
+    {
+        if (existTile == null) return true;
+
+        return Enumerable.SequenceEqual(existTile.ColorRight, tileToAppend.ColorLeft);
+    }
+
+    private bool CanAppendTileForwardSide(VoxelTile existTile, VoxelTile tileToAppend)
+    {
+        if (existTile == null) return true;
+
+        return Enumerable.SequenceEqual(existTile.ColorForward, tileToAppend.ColorBack);
+    }
+
+    private bool CanAppendTileBackSide(VoxelTile existTile, VoxelTile tileToAppend)
+    {
+        if (existTile == null) return true;
+
+        return Enumerable.SequenceEqual(existTile.ColorBack, tileToAppend.ColorForward);
+    }
 
 }

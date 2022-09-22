@@ -8,12 +8,12 @@ public class VoxelTile : MonoBehaviour
     [SerializeField] public float VoxelSize = 0.1f;
     [SerializeField] public int TileSideVoxels = 8;
 
-    [Range(1,100)]   
+    [Range(1, 100)]
     public int Weight = 50;
 
     //[HideInInspector] public byte[] ColorRight;
     //[HideInInspector] public byte[] ColorLeft;
-    [HideInInspector] public byte[] ColorForward;
+    //[HideInInspector] public byte[] ColorForward;
     [HideInInspector] public byte[] ColorBack;
 
     private List<byte> _colorRight = new List<byte>();
@@ -22,21 +22,22 @@ public class VoxelTile : MonoBehaviour
     private List<byte> _colorBack = new List<byte>();
 
     public IReadOnlyCollection<byte> ColorRight => _colorRight;
+    public IReadOnlyCollection<byte> ColorForward => _colorForward;
     public IReadOnlyCollection<byte> ColorLeft => _colorLeft;
 
     private float _voxelHalf = 0.05f;
     private MeshCollider _meshChildrenCollider;
     private Vector3 _rayStart;
 
-    private void Awake()
+
+    private void OnEnable()
     {
-       
         _meshChildrenCollider = GetComponentInChildren<MeshCollider>();
     }
 
-    public void CalculateSideColors() 
+    public void CalculateSideColors()
     {
-        ColorForward = new byte[TileSideVoxels * TileSideVoxels];
+        //ColorLeft = new byte[TileSideVoxels * TileSideVoxels];
         ColorBack = new byte[TileSideVoxels * TileSideVoxels];
 
         for (int y = 0; y < TileSideVoxels; y++)
@@ -44,8 +45,8 @@ public class VoxelTile : MonoBehaviour
             for (int i = 0; i < TileSideVoxels; i++)
             {
                 _colorRight.Add(GetVoxelColorRightSide(y, i));
-               _colorLeft.Add(GetVoxelColorLeftSide(y, i));
-                ColorForward[y * TileSideVoxels + i] = GetVoxelColorForwardSide(y, i);
+                _colorForward.Add(GetVoxelColorForwardSide(y, i));
+                _colorLeft.Add(GetVoxelColorLeftSide(y, i));
                 ColorBack[y * TileSideVoxels + i] = GetVoxelColorBackSide(y, i);
             }
         }
@@ -102,10 +103,10 @@ public class VoxelTile : MonoBehaviour
 
     private float SpecifyVerticalPositionRaycastHit(Vector3 rayStart, int verticalLayer)
     {
-        return  _meshChildrenCollider.bounds.min.y + _voxelHalf + verticalLayer * VoxelSize;
+        return _meshChildrenCollider.bounds.min.y + _voxelHalf + verticalLayer * VoxelSize;
     }
 
-    private byte TryDropeRaycastHit(Vector3 rayStart, Vector3 direction) 
+    private byte TryDropeRaycastHit(Vector3 rayStart, Vector3 direction)
     {
         int triangleCount = 3;
         int maxNumberColor = 256;
