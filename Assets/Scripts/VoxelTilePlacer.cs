@@ -60,7 +60,7 @@ public class VoxelTilePlacer : MonoBehaviour
 
         foreach (VoxelTile tilePrefab in TilePrefabs)
         {
-            if (CanAppendTileLeftSide(spawnedTiles[x-1, y], tilePrefab) &&
+            if (CanAppendTileLeftSide(spawnedTiles[x - 1, y], tilePrefab) &&
                 CanAppendTileRighSide(spawnedTiles[x + 1, y], tilePrefab) &&
                 CanAppendTileForwardSide(spawnedTiles[x, y + 1], tilePrefab) &&
                 CanAppendTileBackSide(spawnedTiles[x, y - 1], tilePrefab))

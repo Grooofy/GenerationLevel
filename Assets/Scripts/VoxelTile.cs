@@ -12,7 +12,7 @@ public class VoxelTile : MonoBehaviour
     public int Weight = 50;
 
     //[HideInInspector] public byte[] ColorRight;
-    //[HideInInspector] public byte[] ColorLeft;
+    [HideInInspector] public byte[] ColorLeft;
     //[HideInInspector] public byte[] ColorForward;
     [HideInInspector] public byte[] ColorBack;
 
@@ -23,7 +23,8 @@ public class VoxelTile : MonoBehaviour
 
     public IReadOnlyCollection<byte> ColorRight => _colorRight;
     public IReadOnlyCollection<byte> ColorForward => _colorForward;
-    public IReadOnlyCollection<byte> ColorLeft => _colorLeft;
+    //public IReadOnlyCollection<byte> ColorLeft => _colorLeft;
+    //public IReadOnlyCollection<byte> ColorBack => _colorBack;
 
     private float _voxelHalf = 0.05f;
     private MeshCollider _meshChildrenCollider;
@@ -35,10 +36,27 @@ public class VoxelTile : MonoBehaviour
         _meshChildrenCollider = GetComponentInChildren<MeshCollider>();
     }
 
+    private void Start()
+    {
+        CalculateSideColors();
+
+        foreach (var item in ColorLeft)
+        {
+            Debug.Log(item);
+        }
+
+        foreach (var item in ColorRight)
+        {
+            Debug.Log(item);
+        }
+
+    }
+
     public void CalculateSideColors()
     {
-        //ColorLeft = new byte[TileSideVoxels * TileSideVoxels];
+        ColorLeft = new byte[TileSideVoxels * TileSideVoxels];
         ColorBack = new byte[TileSideVoxels * TileSideVoxels];
+        // _colorLeft = new List<byte>(TileSideVoxels*TileSideVoxels);
 
         for (int y = 0; y < TileSideVoxels; y++)
         {
@@ -46,7 +64,9 @@ public class VoxelTile : MonoBehaviour
             {
                 _colorRight.Add(GetVoxelColorRightSide(y, i));
                 _colorForward.Add(GetVoxelColorForwardSide(y, i));
-                _colorLeft.Add(GetVoxelColorLeftSide(y, i));
+                //_colorLeft.Add(GetVoxelColorLeftSide(y, i));
+                //_colorBack.Add(GetVoxelColorBackSide(y, i));
+                ColorLeft[y * TileSideVoxels + i] = GetVoxelColorLeftSide(y, i);
                 ColorBack[y * TileSideVoxels + i] = GetVoxelColorBackSide(y, i);
             }
         }
@@ -69,7 +89,7 @@ public class VoxelTile : MonoBehaviour
         Vector3 direction = Vector3.forward;
 
         _rayStart = _meshChildrenCollider.bounds.min +
-                      new Vector3(_voxelHalf + horizontalOffSet * VoxelSize, 0, -_voxelHalf);
+                      new Vector3((_voxelHalf + horizontalOffSet) * VoxelSize, 0, -_voxelHalf);
 
         _rayStart.y = SpecifyVerticalPositionRaycastHit(_rayStart, verticalLayer);
 
@@ -94,7 +114,7 @@ public class VoxelTile : MonoBehaviour
         Vector3 direction = Vector3.right;
 
         _rayStart = _meshChildrenCollider.bounds.min +
-                       new Vector3(-_voxelHalf, 0, _voxelHalf + horizontalOffSet * VoxelSize);
+                       new Vector3(-_voxelHalf, 0, (_voxelHalf + horizontalOffSet) * VoxelSize);
 
         _rayStart.y = SpecifyVerticalPositionRaycastHit(_rayStart, verticalLayer);
 
